@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Component
-public class JwtTokenUtil implements Serializable {
+public class JwtComponent implements Serializable {
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 1000 ; //5 mins
 

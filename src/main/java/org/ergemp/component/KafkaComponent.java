@@ -6,12 +6,12 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Properties;
 
-@Service
-public class KafkaService {
+@Component
+public class KafkaComponent {
 
     @Value("${kafka.bootstrap.servers}")
     private String bootstrapServers;

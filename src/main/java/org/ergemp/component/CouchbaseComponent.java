@@ -9,12 +9,12 @@ import com.couchbase.client.java.kv.GetResult;
 import com.couchbase.client.java.kv.MutationResult;
 import com.couchbase.client.java.query.QueryResult;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
-public class CouchbaseService {
+@Component
+public class CouchbaseComponent {
 
     @Value("${couchbase.server}")
     private String couchbaseServer;

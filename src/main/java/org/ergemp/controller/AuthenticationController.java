@@ -1,6 +1,6 @@
 package org.ergemp.controller;
 
-import org.ergemp.component.JwtTokenUtil;
+import org.ergemp.component.JwtComponent;
 import org.ergemp.model.Token;
 import org.ergemp.model.User;
 import org.ergemp.repository.UserRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 public class AuthenticationController {
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtComponent jwtComponent;
 
     @Autowired
     private UserRepository userRepository;
@@ -26,7 +26,7 @@ public class AuthenticationController {
 
         List<User> users = userRepository.findByUsernamePassword(user.getUsername(), user.getPassword());
         if (users.size() == 1 ){
-            final String token = jwtTokenUtil.generateToken(user);
+            final String token = jwtComponent.generateToken(user);
             return ResponseEntity.ok(new Token(token));
         }
         else {
@@ -36,7 +36,7 @@ public class AuthenticationController {
 
     @PostMapping("/api/token/validate")
     public ResponseEntity validateToken(@RequestBody Token token) {
-        if (jwtTokenUtil.validateToken(token.getToken())){
+        if (jwtComponent.validateToken(token.getToken())){
             return ResponseEntity.ok("VALIDATED");
         }
         else{

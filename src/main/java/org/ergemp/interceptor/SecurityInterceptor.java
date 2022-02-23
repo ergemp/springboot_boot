@@ -1,6 +1,6 @@
 package org.ergemp.interceptor;
 
-import org.ergemp.component.JwtTokenUtil;
+import org.ergemp.component.JwtComponent;
 import org.ergemp.model.User;
 import org.ergemp.repository.UserRepository;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
     Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtComponent jwtComponent;
 
     @Autowired
     private UserRepository userRepository;
@@ -38,7 +38,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
-                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                username = jwtComponent.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 //logger.warn("SecurityFilter: Unable to get JWT Token");
                 response.setStatus(401);
@@ -65,7 +65,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
 
             // if token is valid configure Spring Security to manually set
             // authentication
-            if (jwtTokenUtil.validateToken(jwtToken)) {
+            if (jwtComponent.validateToken(jwtToken)) {
                 return true;
             }
             else{
