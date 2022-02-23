@@ -5,8 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.ergemp.model.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -33,14 +33,14 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(User user) {
         String token = "";
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
 
             token = com.auth0.jwt.JWT.create()
                     .withIssuer("pandme")
-                    .withClaim("username", userDetails.getUsername())
+                    .withClaim("username", user.getUsername())
                     .withExpiresAt(new Date(System.currentTimeMillis() + (JWT_TOKEN_VALIDITY)))
                     .sign(algorithm);
 

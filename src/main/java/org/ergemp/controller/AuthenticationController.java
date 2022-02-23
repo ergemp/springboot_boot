@@ -3,27 +3,35 @@ package org.ergemp.controller;
 import org.ergemp.component.JwtTokenUtil;
 import org.ergemp.model.Token;
 import org.ergemp.model.User;
-import org.ergemp.service.CustomUserDetailsService;
+import org.ergemp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
 public class AuthenticationController {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private UserRepository userRepository;
 
     @PostMapping("/api/token")
     public ResponseEntity getToken(@RequestBody User user) {
-        final UserDetails userDetails = customUserDetailsService.loadUserByUser(user);
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new Token(token));
+
+        List<User> users = userRepository.findByUsernamePassword(user.getUsername(), user.getPassword());
+        if (users.size() == 1 ){
+            final String token = jwtTokenUtil.generateToken(user);
+            return ResponseEntity.ok(new Token(token));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("INVALID CREDENTIALS");
+        }
     }
 
     @PostMapping("/api/token/validate")

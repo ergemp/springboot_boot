@@ -1,4 +1,4 @@
-package org.ergemp.service;
+package org.ergemp.component;
 
 import com.couchbase.client.core.error.DocumentNotFoundException;
 import com.couchbase.client.java.Bucket;

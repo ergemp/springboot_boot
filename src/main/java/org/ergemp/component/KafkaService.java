@@ -1,4 +1,4 @@
-package org.ergemp.service;
+package org.ergemp.component;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;

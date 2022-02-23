@@ -1,4 +1,4 @@
-package org.ergemp.service;
+package org.ergemp.component;
 
 public class SendMailService {
 }

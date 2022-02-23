@@ -9,11 +9,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAsync
 @EnableSwagger2
 @SpringBootApplication
-//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan(basePackages =   "org.ergemp.controller," +
+//
+//include all components from packages
+//
+@ComponentScan(basePackages =   "org.ergemp.component," +
                                 "org.ergemp.configuration," +
-                                "org.ergemp.component," +
-                                "org.ergemp.service," +
+                                "org.ergemp.controller," +
                                 "org.ergemp.interceptor," +
                                 "org.ergemp.repository")
 public class Application {

@@ -19,6 +19,11 @@ import java.util.function.Predicate;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+//
+//enable swagger documentation
+// /v2/api-docs
+// /swagger-ui.html
+//
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
@@ -53,7 +58,3 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         );
     }
 }
-
-// /v2/api-docs
-// /swagger-ui.html
-
